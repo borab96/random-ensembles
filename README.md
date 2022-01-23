@@ -1,2 +1,2 @@
-# random-ensembles
-Library of random matrix theory generators and methods
+# rmt
+ collection of random matrix theory generators and methods
