@@ -5,5 +5,5 @@
  
  ## Examples
  
-- Some basic random matrix valued stochastic procs are described in the corresponding [notebook](https://nbviewer.org/github/borab96/random-ensembles/blob/main/RMTprocs.ipynb)
+- [Nonintersecting Brownian motion](https://nbviewer.org/github/borab96/random-ensembles/blob/main/RMTprocs.ipynb)
 - Application to filtering TODO
