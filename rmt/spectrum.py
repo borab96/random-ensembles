@@ -14,13 +14,14 @@ def mean_norm(eig, n, beta):
     return np.piecewise(eig, [eig <= -np.sqrt(2*beta*n), eig >= np.sqrt(2*beta*n)], [0, n, f])
 
 
-def level_space(generator, *args, n_mc=200, hermitian=True, normalize_mean=True, tol=0.001):
+def level_space(generator, *args, n_mc=200, hermitian=True, normalize_mean="analytic", tol=0.001):
     """
     :param generator: the generating function of the desired ensemble, gue, gse etc.
     :param args: arguments of the generating function
     :param n_mc: number of Monte Carlo steps to sample the distribution
     :param hermitian: If True, use hermitian linalg methods
-    :param normalize_mean: If True, mean spacing is normalized to 1 using method `mean_norm`
+    :param normalize_mean: If "analytic", mean spacing is normalized to 1 using analytic unfolding function, requires (GOE, GSE, GUE). 
+        If "brute_force", numerically determines unfolding
     :param tol: tolerance parameter for numerical stability. A small strictly positive number
     :return: numpy array of level spacing distribution samples.
     """
@@ -35,18 +36,19 @@ def level_space(generator, *args, n_mc=200, hermitian=True, normalize_mean=True,
         dyson_index = 0
     if "ginibre" in generator.__name__.lower():
         hermitian = False
-    for _ in range(n_mc):
+   for _ in range(n_mc):
         rm = generator(*args)
         if hermitian:
             e, _ = np.linalg.eigh(rm)
         else:
             e, _ = np.linalg.eigh(rm)
         if normalize_mean and bool(dyson_index):
-            e = mean_norm(e, args[0], dyson_index)
-        eig_spaces = [e[i+1] - e[i] for i in range(args[0]-1) if e[i+1]-e[i] > tol]
-        spacings.extend(eig_spaces)
-    return np.array(spacings)
+            e = F(e, args[0], dyson_index)
+            # eig_spaces = [F(e, args[0], dyson_index)[i+1] - F(e, args[0], dyson_index)[i] for i in range(args[0]-1) if e[i+1]-e[i]>0.001]
 
+        eig_spaces = [e[i+1] - e[i] for i in range(args[0]-1) if e[i+1]-e[i]>0.001]
+        spacings += eig_spaces
+    return np.array(spacings)
 
 def spectral_density(rm, hermitian=True):
     if hermitian:
