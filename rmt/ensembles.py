@@ -1,7 +1,7 @@
 
 import scipy.stats as scs
 import numpy as np
-from quaternion import symplectic
+from .quaternion import symplectic
 
 
 def ge(n):
