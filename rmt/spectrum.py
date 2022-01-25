@@ -43,7 +43,7 @@ def level_space(generator, *args, n_mc=200, hermitian=True, normalize_mean="anal
         else:
             e, _ = np.linalg.eigh(rm)
         if normalize_mean and bool(dyson_index):
-            e = F(e, args[0], dyson_index)
+            e = mean_norm(e, args[0], dyson_index)
             # eig_spaces = [F(e, args[0], dyson_index)[i+1] - F(e, args[0], dyson_index)[i] for i in range(args[0]-1) if e[i+1]-e[i]>0.001]
 
         eig_spaces = [e[i+1] - e[i] for i in range(args[0]-1) if e[i+1]-e[i]>0.001]
