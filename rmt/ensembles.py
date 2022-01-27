@@ -37,14 +37,19 @@ def gue(n):
     return 0.5*(ge_C+ge_C.T.conj())
 
 
-def ginibre(n):
+def ginibre(n, complex=True):
     """
     This is a common non-Hermitian ensemble
 
     :param n: size of random matrix
+    :param complex: if true, complex Ginibre ensemble, otherwise real
     :return: random n by n matrix, drawn from the standard Gaussian ginibre ensemble
     """
-    return ge(n) * np.sqrt(1 / (2 * n)) + 1j * ge(n) * np.sqrt(1 / (2 * n))
+    if complex:
+        return ge(n) * np.sqrt(1 / (2 * n)) + 1j * ge(n) * np.sqrt(1 / (2 * n))
+    else:
+        return  ge(n) * np.sqrt(1 /n)
+
 
 
 def le(n, alpha, beta=0):
