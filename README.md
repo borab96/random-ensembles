@@ -5,5 +5,5 @@
  
  ## Examples
  
-- [Nonintersecting Brownian motion](https://nbviewer.org/github/borab96/random-ensembles/blob/main/RMTprocs.ipynb)
-- Application to filtering TODO
+- [Determinantal point processes](https://nbviewer.org/github/borab96/random-ensembles/blob/main/nbs/RMTprocs.ipynb) Non-crossing Brownian motion, repulsive sampling etc.
+- TODO [Application to filtering](https://nbviewer.org/github/borab96/random-ensembles/blob/main/nbs/RMTfiltering.ipynb)
